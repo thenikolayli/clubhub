@@ -6,7 +6,7 @@ export const App = () => {
     return (
         <Router>
             <Route path={"/"} component={Home} />
-            <Route path={"/create"} component={Create} />
+            <Route path={"/post"} component={Create} />
         </Router>
     )
 }

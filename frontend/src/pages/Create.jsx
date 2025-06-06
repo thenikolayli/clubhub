@@ -11,6 +11,7 @@ export const Create = () => {
     const [name, set_name] = createSignal("")
     const [description, set_description] = createSignal("") // 710 character limit
     const [url, set_url] = createSignal("")
+    const [api, set_api] = createSignal("")
 
 
     const animate_text = (field, selector, is_mouse_inside) => {
@@ -33,7 +34,7 @@ export const Create = () => {
         })
 
         timeline.to(bg_selector, {
-            scale: is_mouse_inside ? 37 : 0,
+            scale: is_mouse_inside ? 45 : 0,
             opacity: is_mouse_inside ? 1 : 0,
             transformOrigin: "center",
         }, 0)
@@ -48,9 +49,6 @@ export const Create = () => {
             const response = await axios({
                 method: "post",
                 url: "/api/club",
-                // headers: {
-                //     ""
-                // },
                 data: {
                     name: name(),
                     description: description(),
@@ -58,8 +56,10 @@ export const Create = () => {
                 }
             })
             console.log(response)
+            set_api("club created")
         } catch (error) {
             console.log(error)
+            set_api("an error has occurred...")
         }
     }
 
@@ -76,15 +76,17 @@ export const Create = () => {
     return (
         <>
             <section class={"w-full h-screen mb-[10rem]"}>
-                <header class={"font-medium text-6xl flex items-center w-fit mx-auto pt-[1rem]"}>
-                    Create
+                <a class={"font-medium text-6xl flex items-center w-fit mx-auto pt-[1rem]"}
+                   href={"/"}
+                >
+                    post
                     <br/>
                     a club
                     <img class={"ml-2 h-[3em]"} src={logo} alt="Logo"/>
-                </header>
+                </a>
 
                 <form onsubmit={create_club}
-                      class={"mx-auto w-fit mt-[2rem] shadow-xl border-[#d87534] border-4 py-[3.5rem] p-[3rem] text-4xl rounded-lg"}>
+                      class={"mx-auto max-w-[35%] w-fit mt-[2rem] shadow-xl border-[#d87534] border-4 py-[3.5rem] p-[3rem] text-4xl rounded-lg"}>
 
                     <div class={"relative border-b-3 border-cwhite"}
                          onmouseenter={() => animate_text(name, ".name", true)}
@@ -107,7 +109,7 @@ export const Create = () => {
                     <div class="relative mt-10">
                         <h1 class={"description"}>club description</h1>
                         <textarea value = {description()} oninput={(event) => set_description(event.target.value)}
-                                  class={"resize-y field-sizing-content z-10 max-h-[24em] h-[10em] overflow-hidden mt-2 w-full outline-none border-3 border-cwhite rounded-lg text-lg p-2"}/>
+                                  class={"resize-y word-break field-sizing-content z-10 max-h-[24em] h-[10em] overflow-hidden mt-2 w-full outline-none border-3 border-cwhite rounded-lg text-lg p-2"}/>
                         <h1 class={"absolute right-3 bottom-4 text-lg text-left"}>{description().length}/380</h1>
                     </div>
 
@@ -115,9 +117,10 @@ export const Create = () => {
                             onmouseenter={() => animate_button(".button-text", ".button-bg", true)}
                             onmouseleave={() => animate_button(".button-text", ".button-bg", false)}
                     >
-                        <h1 class={"button-text relative z-10"}>create</h1>
+                        <h1 class={"button-text relative z-10 px-6"}>post</h1>
                         <div class="button-bg z-0 absolute inset-0 flex self-center opacity-0 h-1 w-1 mx-auto bg-cwhite rounded-full"/>
                     </button>
+                    <h1 class={"mt-4 text-2xl"}>{api()}</h1>
                 </form>
             </section>
         </>
