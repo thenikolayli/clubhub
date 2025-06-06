@@ -1,32 +1,38 @@
 package com.example.demo;
 
-public class ClubModel {
-    private String name;
-    private String description;
-    private String image_url;
+import org.bson.codecs.pojo.annotations.BsonCreator;
+import org.bson.codecs.pojo.annotations.BsonProperty;
 
-    public ClubModel(String name, String description, String image_url) {
+public class ClubModel {
+    private final String name;
+    private final String description;
+    private final String imageUrl;
+
+    @BsonCreator
+    public ClubModel(@BsonProperty("name") String name,
+                     @BsonProperty("description") String description,
+                     @BsonProperty("imageUrl") String imageUrl) {
         this.name = name;
         this.description = description;
-        this.image_url = image_url;
+        this.imageUrl = imageUrl;
     }
 
-    public String get_name() {
+    public String getName() {
         return this.name;
     }
 
-    public String get_description() {
+    public String getDescription() {
         return this.description;
     }
 
-    public String get_image_url() {
-        return this.image_url;
+    public String getImageUrl() {
+        return this.imageUrl;
     }
 
     @Override
     public String toString() {
         return "\nClub name: " + this.name +
         "\nClub description: " + this.description +
-        "\nImage url: " + this.image_url;
+        "\nImage url: " + this.imageUrl;
     }
 }

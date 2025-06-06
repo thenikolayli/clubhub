@@ -1,7 +1,39 @@
+# services:
+#   mongo:
+#     image: mongo:latest
+#     volumes:
+#       - db_data:/data/db
+#     ports:
+#       - 27017:27017
+
+# volumes:
+#   db_data:
+
+
 services:
   mongo:
     image: mongo:latest
     volumes:
       - db_data:/data/db
+    expose:
+      - 27017
     ports:
-      - 27017:27017
+     - 27017:27017
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - static_files:/app/static
+    ports:
+      - 80:80
+  server:
+    build: .
+    volumes:
+      - static_files:/static
+    expose:
+      - 8080
+    command: "java -jar target/demo-0.0.1.jar"
+
+volumes:
+  db_data:
+  static_files:
