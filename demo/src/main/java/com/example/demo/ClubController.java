@@ -30,10 +30,9 @@ public class ClubController {
     }
 
     @GetMapping("/api/club")
-    public ResponseEntity<ArrayList<ClubModel>> getClubList(@RequestParam int number, @RequestParam int skip) {
+    public ResponseEntity<ArrayList<ClubModel>> getClubList(@RequestParam int number) {
         MongoCollection<ClubModel> clubCollection = GetCollection.getClubCollection();
         FindIterable<ClubModel> clubIterable = clubCollection.find();
-        clubIterable.skip(skip);
         clubIterable.limit(number);
 
         ArrayList<ClubModel> clubList = new ArrayList<>();

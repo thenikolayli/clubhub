@@ -52,7 +52,7 @@ export const Create = () => {
                 data: {
                     name: name(),
                     description: description(),
-                    url: url()
+                    imageUrl: url()
                 }
             })
             console.log(response)
@@ -101,7 +101,7 @@ export const Create = () => {
                     <div class={"relative mt-10 border-b-3 border-cwhite"}
                          onmouseenter={() => animate_text(url, ".url", true)}
                          onmouseleave={() => animate_text(url, ".url", false)}>
-                        <input class={"outline-none relative z-10"} type="text" value={url()}
+                        <input class={"outline-none relative z-10 text-lg w-full"} type="text" value={url()}
                                oninput={(event) => set_url(event.target.value)}/>
                         <h1 class={"url absolute top-0 left-0"}>club image url</h1>
                     </div>
